@@ -12,6 +12,8 @@
     var(--gradient-first-color) 0%,
     var(--gradient-second-color) 50%
   );
+
+  --danger-color: red;
 }
 
 * {
@@ -30,6 +32,10 @@ button {
   font: inherit;
   background: none;
   border: none;
+  outline: none;
+}
+button {
+  cursor: pointer;
 }
 
 html,
@@ -59,23 +65,18 @@ body {
   }
 }
 
-.input-field {
-  display: flex;
-  flex-direction: column;
-  color: var(--additional-text-color);
-  gap: 5px;
+.app-title {
+  background-color: var(--gradient-first-color);
+  background-image: var(--gradient);
+
+  background-size: 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
 }
-.input-field__input {
-  color: var(--text-color);
-  border: 2px solid var(--additional-text-color);
-  border-radius: 5px;
-  padding: 10px 20px;
-  outline: none;
-  transition: border 0.3s;
-}
-.input-field__input:focus {
-  border-color: var(--gradient-first-color);
-}
+
 .input-field__color {
   display: flex;
   border: 2px solid var(--additional-text-color);

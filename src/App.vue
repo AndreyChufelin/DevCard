@@ -1,95 +1,24 @@
 <script setup lang="ts">
-import ArrowIcon from "./components/icons/ArrowIcon.vue";
+import { ref } from "vue";
 import PhoneIcon from "./components/icons/PhoneIcon.vue";
 import DesktopIcon from "./components/icons/DesktopIcon.vue";
+import TheEditor, { EditorOptions } from "./components/TheEditor.vue";
+
+const editorOptions = ref<EditorOptions>({
+  info: {
+    name: "",
+    jobTitle: "",
+    skills: [],
+    socials: [{text: "", type: "tg"},{text: "", type: "github"},{text: "", type: "email"},],
+  },
+});
 </script>
 
 <template>
   <div class="app">
-    <div class="editor">
-      <h1 class="app__title app__title_editor">DevCard</h1>
-      <div class="editor__group">
-        <h2 class="editor__title">Информация</h2>
-        <label class="input-field">
-          Имя<input class="input-field__input" type="text" name="" id="" />
-        </label>
-        <label class="input-field">
-          Должность<input
-            class="input-field__input"
-            type="text"
-            name=""
-            id=""
-          />
-        </label>
-        <label class="input-field">
-          Навыки<input class="input-field__input" type="text" name="" id="" />
-        </label>
-        <label class="input-field">
-          Ссылки
-          <input class="input-field__input" type="text" name="" id="" />
-          <input class="input-field__input" type="text" name="" id="" />
-          <input class="input-field__input" type="text" name="" id="" />
-          <button class="button">+ Добавить</button>
-        </label>
-      </div>
-      <div class="editor__group">
-        <h2 class="editor__title">Цвета</h2>
-        <div class="input-field">
-          Основной
-          <div class="input-field__color">
-            <input
-              class="input-field__color-picker"
-              type="color"
-              name=""
-              id=""
-            />
-            <input class="input-field__color-input" type="text" name="" id="" />
-          </div>
-        </div>
-        <div class="input-field">
-          Дополнительный
-          <div class="input-field__color">
-            <input
-              class="input-field__color-picker"
-              type="color"
-              name=""
-              id=""
-            />
-            <input class="input-field__color-input" type="text" name="" id="" />
-          </div>
-        </div>
-      </div>
-      <div class="editor__group">
-        <h2 class="editor__title"><ArrowIcon /> Задний фон</h2>
-        <div class="input-field">
-          Информация
-          <div class="input-field__select">
-            <img
-              class="input-field__select-item"
-              src="D:\downloads\ssss.png"
-              alt=""
-            />
-            <img
-              class="input-field__select-item"
-              src="D:\downloads\ssss.png"
-              alt=""
-            />
-            <img
-              class="input-field__select-item"
-              src="D:\downloads\ssss.png"
-              alt=""
-            />
-            <img
-              class="input-field__select-item"
-              src="D:\downloads\ssss.png"
-              alt=""
-            />
-          </div>
-        </div>
-      </div>
-    </div>
+    <TheEditor v-model="editorOptions" class="editor" />
     <div class="preview">
-      <h1 class="app__title app__title_preview">DevCard</h1>
+      <h1 class="app-title">DevCard</h1>
       <h2 class="preview__title">
         Пред просмотр
         <div class="preview__title_toolbar">
@@ -102,6 +31,7 @@ import DesktopIcon from "./components/icons/DesktopIcon.vue";
         src="D:\downloads\filename(23).png"
         alt="Card's preview"
       />
+      <p>{{ editorOptions.info }}</p>
       <div class="preview__toolbar">
         <button class="button download-button">Скачать</button>
         <button class="button-dark">Сбросить</button>
@@ -118,32 +48,8 @@ import DesktopIcon from "./components/icons/DesktopIcon.vue";
   margin: 0 auto;
 }
 
-h1 {
-  background-color: var(--gradient-first-color);
-  background-image: var(--gradient);
-
-  background-size: 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
-}
 .editor {
-  display: flex;
-  flex-direction: column;
   width: 30%;
-  gap: 30px;
-  container-type: inline-size;
-}
-.editor__title {
-  display: flex;
-  align-items: center;
-}
-.editor__group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }
 
 .preview {
@@ -170,7 +76,7 @@ h1 {
   }
 }
 
-.app__title_preview {
+.app-title {
   display: none;
 }
 .preview__title {
@@ -198,10 +104,7 @@ h1 {
     width: 100%;
     margin-top: 0px;
   }
-  .app__title {
-    display: none;
-  }
-  .app__title_preview {
+  .app-title {
     display: block;
   }
 }
