@@ -2,8 +2,8 @@
 import InputField from "./InputField.vue";
 import InputSocials, { SocialItem } from "./InputSocials.vue";
 import InputTags from "./InputTags.vue";
+import VueAccordion from "./VueAccordion.vue";
 import VueInput from "./VueInput.vue";
-import ArrowIcon from "./icons/ArrowIcon.vue";
 
 export interface EditorOptions {
   info: {
@@ -22,66 +22,103 @@ defineProps<{
 <template>
   <div class="editor">
     <h1 class="app-title">DevCard</h1>
-    <div class="editor__group">
-      <h2 class="editor__title">Информация</h2>
-      <InputField tag="label" title="Имя">
-        <VueInput v-model="modelValue.info.name" />
-      </InputField>
-      <InputField tag="label" title="Должность">
-        <VueInput v-model="modelValue.info.jobTitle" />
-      </InputField>
-      <InputField title="Навыки (Enter)">
-        <InputTags v-model="modelValue.info.skills" />
-      </InputField>
-      <InputField title="Ссылки">
-        <InputSocials v-model="modelValue.info.socials" />
-      </InputField>
-    </div>
-    <div class="editor__group">
-      <h2 class="editor__title">Цвета</h2>
-      <div class="input-field">
-        Основной
-        <div class="input-field__color">
-          <input class="input-field__color-picker" type="color" name="" id="" />
-          <input class="input-field__color-input" type="text" name="" id="" />
+    <VueAccordion>
+      <template #title><h2>Информация</h2></template>
+      <template #default>
+        <div class="editor__group">
+          <InputField tag="label" title="Имя">
+            <VueInput v-model="modelValue.info.name" />
+          </InputField>
+          <InputField tag="label" title="Должность">
+            <VueInput v-model="modelValue.info.jobTitle" />
+          </InputField>
+          <InputField title="Навыки (Enter)">
+            <InputTags v-model="modelValue.info.skills" />
+          </InputField>
+          <InputField title="Ссылки">
+            <InputSocials v-model="modelValue.info.socials" />
+          </InputField>
         </div>
-      </div>
-      <div class="input-field">
-        Дополнительный
-        <div class="input-field__color">
-          <input class="input-field__color-picker" type="color" name="" id="" />
-          <input class="input-field__color-input" type="text" name="" id="" />
+      </template>
+    </VueAccordion>
+    <!-- <div class="editor__group">
+      <h2 class="editor__title"></h2>
+    </div> -->
+    <VueAccordion>
+      <template #title>
+        <h2>Цвета</h2>
+      </template>
+      <template #default>
+        <div class="editor__group">
+          <div class="input-field">
+            Основной
+            <div class="input-field__color">
+              <input
+                class="input-field__color-picker"
+                type="color"
+                name=""
+                id=""
+              />
+              <input
+                class="input-field__color-input"
+                type="text"
+                name=""
+                id=""
+              />
+            </div>
+          </div>
+          <div class="input-field">
+            Дополнительный
+            <div class="input-field__color">
+              <input
+                class="input-field__color-picker"
+                type="color"
+                name=""
+                id=""
+              />
+              <input
+                class="input-field__color-input"
+                type="text"
+                name=""
+                id=""
+              />
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-    <div class="editor__group">
-      <h2 class="editor__title"><ArrowIcon /> Задний фон</h2>
-      <div class="input-field">
-        Информация
-        <div class="input-field__select">
-          <img
-            class="input-field__select-item"
-            src="D:\downloads\ssss.png"
-            alt=""
-          />
-          <img
-            class="input-field__select-item"
-            src="D:\downloads\ssss.png"
-            alt=""
-          />
-          <img
-            class="input-field__select-item"
-            src="D:\downloads\ssss.png"
-            alt=""
-          />
-          <img
-            class="input-field__select-item"
-            src="D:\downloads\ssss.png"
-            alt=""
-          />
+      </template>
+    </VueAccordion>
+    <VueAccordion>
+      <template #title><h2>Задний фон</h2></template>
+      <template #default>
+        <div class="editor__group">
+          <div class="input-field">
+            Информация
+            <div class="input-field__select">
+              <img
+                class="input-field__select-item"
+                src="D:\downloads\ssss.png"
+                alt=""
+              />
+              <img
+                class="input-field__select-item"
+                src="D:\downloads\ssss.png"
+                alt=""
+              />
+              <img
+                class="input-field__select-item"
+                src="D:\downloads\ssss.png"
+                alt=""
+              />
+              <img
+                class="input-field__select-item"
+                src="D:\downloads\ssss.png"
+                alt=""
+              />
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </template>
+    </VueAccordion>
   </div>
 </template>
 <style scoped>
