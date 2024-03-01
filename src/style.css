@@ -61,7 +61,7 @@ body {
 }
 @media (max-width: 576px) {
   #app {
-    padding: 20px;
+    padding: 25px;
   }
 }
 

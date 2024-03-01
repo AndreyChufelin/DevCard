@@ -11,11 +11,8 @@ import FacebookIcon from "./icons/FacebookIcon.vue";
 import InputSocialsToolbar, {
   SocialsAddEvent,
 } from "./InputSocialsToolbar.vue";
+import { SocialItem } from "../composables/cardCanvas";
 
-export interface SocialItem {
-  text: string;
-  type: string;
-}
 export interface SocialsListItem {
   icon: typeof TelegramIcon | typeof GithubIcon;
   type: string;

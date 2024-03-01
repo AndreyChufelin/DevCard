@@ -11,7 +11,6 @@ const single = ref("");
 const gradient = ref<Gradient>(["", ""]);
 
 watchEffect(() => {
-  //switch to isArray
   if (Array.isArray(color.value)) {
     colorType.value = "gradient";
     gradient.value = color.value;

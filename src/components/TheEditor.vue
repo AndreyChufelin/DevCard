@@ -1,24 +1,13 @@
 <script setup lang="ts">
+import { EditorOptions } from "../composables/cardCanvas";
 import InputColor from "./InputColor.vue";
-import { Gradient } from "./InputColorGradient.vue";
 import InputColorSwitch from "./InputColorSwitch.vue";
 import InputField from "./InputField.vue";
-import InputSocials, { SocialItem } from "./InputSocials.vue";
+import InputSocials from "./InputSocials.vue";
 import InputTags from "./InputTags.vue";
 import VueAccordion from "./VueAccordion.vue";
 import VueInput from "./VueInput.vue";
 
-export interface EditorOptions {
-  info: {
-    name: string;
-    jobTitle: string;
-    skills: string[];
-    socials: SocialItem[];
-  };
-  colors: {
-    additional: string | Gradient;
-  };
-}
 
 defineProps<{
   modelValue: EditorOptions;
@@ -44,6 +33,9 @@ defineProps<{
           <InputField title="Ссылки">
             <InputSocials v-model="modelValue.info.socials" />
           </InputField>
+          <InputField tag="label" title="QR-код">
+            <VueInput v-model="modelValue.info.qrcode" />
+          </InputField>
         </div>
       </template>
     </VueAccordion>
@@ -57,10 +49,10 @@ defineProps<{
       <template #default>
         <div class="editor__group">
           <InputField title="Основной">
-            <InputColor />
+            <InputColor v-model="modelValue.colors.primary" />
           </InputField>
           <InputField title="Дополнительный">
-            <InputColorSwitch v-model="modelValue.colors.additional" />
+            <InputColorSwitch v-model="modelValue.colors.accent" />
           </InputField>
         </div>
       </template>
