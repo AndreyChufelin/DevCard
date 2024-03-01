@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import InputColor from "./InputColor.vue";
+import { Gradient } from "./InputColorGradient.vue";
+import InputColorSwitch from "./InputColorSwitch.vue";
 import InputField from "./InputField.vue";
 import InputSocials, { SocialItem } from "./InputSocials.vue";
 import InputTags from "./InputTags.vue";
@@ -11,6 +14,9 @@ export interface EditorOptions {
     jobTitle: string;
     skills: string[];
     socials: SocialItem[];
+  };
+  colors: {
+    additional: string | Gradient;
   };
 }
 
@@ -50,40 +56,12 @@ defineProps<{
       </template>
       <template #default>
         <div class="editor__group">
-          <div class="input-field">
-            Основной
-            <div class="input-field__color">
-              <input
-                class="input-field__color-picker"
-                type="color"
-                name=""
-                id=""
-              />
-              <input
-                class="input-field__color-input"
-                type="text"
-                name=""
-                id=""
-              />
-            </div>
-          </div>
-          <div class="input-field">
-            Дополнительный
-            <div class="input-field__color">
-              <input
-                class="input-field__color-picker"
-                type="color"
-                name=""
-                id=""
-              />
-              <input
-                class="input-field__color-input"
-                type="text"
-                name=""
-                id=""
-              />
-            </div>
-          </div>
+          <InputField title="Основной">
+            <InputColor />
+          </InputField>
+          <InputField title="Дополнительный">
+            <InputColorSwitch v-model="modelValue.colors.additional" />
+          </InputField>
         </div>
       </template>
     </VueAccordion>

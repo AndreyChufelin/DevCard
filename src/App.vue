@@ -11,6 +11,9 @@ const editorOptions = ref<EditorOptions>({
     skills: [],
     socials: [{text: "", type: "tg"},{text: "", type: "github"},{text: "", type: "email"},],
   },
+  colors: {
+    additional: ["#4158d0","#c850c0"]
+  }
 });
 </script>
 
@@ -31,7 +34,7 @@ const editorOptions = ref<EditorOptions>({
         src="D:\downloads\filename(23).png"
         alt="Card's preview"
       />
-      <p>{{ editorOptions.info }}</p>
+      <p>{{ editorOptions }}</p>
       <div class="preview__toolbar">
         <button class="button download-button">Скачать</button>
         <button class="button-dark">Сбросить</button>
