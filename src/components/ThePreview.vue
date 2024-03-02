@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, watchEffect } from "vue";
+import { watchEffect } from "vue";
 
 import { EditorOptions, useCardCanvas } from "../composables/cardCanvas.ts";
 import PhoneIcon from "./icons/PhoneIcon.vue";
@@ -7,16 +7,11 @@ import DesktopIcon from "./icons/DesktopIcon.vue";
 
 const props = defineProps<{ canvasOptions: EditorOptions }>();
 
-const { resultURL, draw } = useCardCanvas(() => {
+const { resultURL, loading, draw } = useCardCanvas(() => {
   draw(props.canvasOptions);
 });
 
-// onMounted(() => {
-//   draw(props.canvasOptions);
-// });
-
 watchEffect(() => {
-  //TODO: add debounce
   draw(props.canvasOptions);
 });
 </script>
@@ -31,7 +26,12 @@ watchEffect(() => {
         <button class="link"><PhoneIcon /></button>
       </div>
     </h2>
-    <img class="preview__image" :src="resultURL" alt="Card's preview" />
+    <img
+      v-if="!loading"
+      class="preview__image"
+      :src="resultURL"
+      alt="Card's preview"
+    />
     <p>{{ canvasOptions }}</p>
     <div class="preview__toolbar">
       <button class="button download-button">Скачать</button>

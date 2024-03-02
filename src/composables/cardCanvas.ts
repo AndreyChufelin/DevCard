@@ -71,6 +71,7 @@ export function useCardCanvas(onLoad: Function) {
   }
 
   function draw(options: EditorOptions) {
+    if (loading.value) return;
     ctx.drawImage(images.background, 0, 0);
 
     //TG
@@ -94,6 +95,25 @@ export function useCardCanvas(onLoad: Function) {
       ctx.fillText(social.text, 35 + 30, canvas.height - (165 - 40 * index));
     });
 
+    //Name
+    ctx.font = "bold 48px Montserrat";
+    ctx.fillStyle = options.colors.primary;
+    ctx.fillText(options.info.name, 35, 35 + 48);
+
+    //Job
+    const jobTitle = options.info.jobTitle;
+    ctx.fillStyle = getColor(
+      options.colors.accent,
+      ctx.measureText(jobTitle).width
+    );
+    ctx.fillText(jobTitle, 35, 135);
+
+    //Skills
+    ctx.font = "16px Montserrat";
+    ctx.fillStyle = options.colors.second;
+    ctx.fillText(options.info.skills.join(" • "), 35, 170);
+    
+    //QRcode
     getQR(options.info.qrcode || "Hello, world!", options.colors.accent).then(
       (img) => {
         ctx.drawImage(
@@ -106,26 +126,6 @@ export function useCardCanvas(onLoad: Function) {
         save();
       }
     );
-
-    //Name
-    ctx.font = "bold 48px Montserrat";
-    ctx.fillStyle = options.colors.primary;
-    ctx.fillText(options.info.name || "Ваше имя", 35, 35 + 48);
-
-    //Job
-    const jobTitle = options.info.jobTitle || "Ваша должность";
-    ctx.fillStyle = getColor(
-      options.colors.accent,
-      ctx.measureText(jobTitle).width
-    );
-    ctx.fillText(jobTitle, 35, 135);
-
-    //Skills
-    ctx.font = "16px Montserrat";
-    ctx.fillStyle = options.colors.second;
-    ctx.fillText(options.info.skills.join(" • "), 35, 170);
-
-    save();
   }
 
   function save() {
