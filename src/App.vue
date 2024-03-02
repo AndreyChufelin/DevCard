@@ -14,6 +14,7 @@ const editorOptions = ref<EditorOptions>({
       { text: "", type: "github" },
       { text: "", type: "email" },
     ],
+    qrcode: "",
   },
   colors: {
     primary: "#ffffff",

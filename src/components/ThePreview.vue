@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watchEffect } from "vue";
+import { onMounted, watchEffect } from "vue";
 
 import { EditorOptions, useCardCanvas } from "../composables/cardCanvas.ts";
 import PhoneIcon from "./icons/PhoneIcon.vue";
@@ -10,6 +10,10 @@ const props = defineProps<{ canvasOptions: EditorOptions }>();
 const { resultURL, draw } = useCardCanvas(() => {
   draw(props.canvasOptions);
 });
+
+// onMounted(() => {
+//   draw(props.canvasOptions);
+// });
 
 watchEffect(() => {
   //TODO: add debounce

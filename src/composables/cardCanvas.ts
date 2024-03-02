@@ -2,10 +2,8 @@ import { ref } from "vue";
 import { qrcanvas } from "qrcanvas";
 
 import backgroundImage from "../assets/cardCanvas/s.png";
-import tgImage from "../assets/cardCanvas/tg.svg";
-import githubImage from "../assets/cardCanvas/github.svg";
-import emailImage from "../assets/cardCanvas/email.svg";
 import { Gradient } from "../components/InputColorGradient.vue";
+import canvasIcons from "../utils/canvasIcons";
 
 export interface EditorOptions {
   info: {
@@ -38,9 +36,6 @@ export function useCardCanvas(onLoad: Function) {
 
   const imageURL = [
     { name: "background", src: backgroundImage, width: 850, height: 500 },
-    { name: "tg", src: tgImage, width: 25, height: 25 },
-    { name: "github", src: githubImage, width: 25, height: 25 },
-    { name: "email", src: emailImage, width: 25, height: 25 },
   ];
   const images: {
     [key: string]: HTMLImageElement;
@@ -84,27 +79,15 @@ export function useCardCanvas(onLoad: Function) {
         return;
       }
 
-      // ctx.fillStyle = options.colors.primary;
-      // ctx.fillRect(35, canvas.height - (185 - 40 * index), 25, 25);
-      // ctx.globalCompositeOperation = "destination-in";
-
-      // ctx.drawImage(
-      //   images[social.type],
-      //   35,
-      //   canvas.height - (185 - 40 * index),
-      //   25,
-      //   25
-      // );
-      // ctx.globalCompositeOperation = "source-in";
       ctx.fillStyle = options.colors.primary;
-      let p = new Path2D(
-        "M23.1117 4.49449C23.4296 2.94472 21.9074 1.65683 20.4317 2.227L2.3425 9.21601C0.694517 9.85273 0.621087 12.1572 2.22518 12.8975L6.1645 14.7157L8.03849 21.2746C8.13583 21.6153 8.40618 21.8791 8.74917 21.968C9.09216 22.0568 9.45658 21.9576 9.70712 21.707L12.5938 18.8203L16.6375 21.8531C17.8113 22.7334 19.5019 22.0922 19.7967 20.6549L23.1117 4.49449ZM3.0633 11.0816L21.1525 4.0926L17.8375 20.2531L13.1 16.6999C12.7019 16.4013 12.1448 16.4409 11.7929 16.7928L10.5565 18.0292L10.928 15.9861L18.2071 8.70703C18.5614 8.35278 18.5988 7.79106 18.2947 7.39293C17.9906 6.99479 17.4389 6.88312 17.0039 7.13168L6.95124 12.876L3.0633 11.0816ZM8.17695 14.4791L8.78333 16.6015L9.01614 15.321C9.05253 15.1209 9.14908 14.9366 9.29291 14.7928L11.5128 12.573L8.17695 14.4791Z"
-      );
-      // ctx.translate(100, 100);
       let p2 = new Path2D();
-      p2.addPath(p, { e: 35, f: canvas.height - (185 - 40 * index) });
 
-      ctx.fill(p2);
+      canvasIcons[social.type].forEach((icon) => {
+        let p = new Path2D(icon);
+        p2.addPath(p, { e: 35, f: canvas.height - (185 - 40 * index) });
+      });
+
+      ctx.fill(p2, "evenodd");
 
       ctx.font = "24px Montserrat";
       ctx.fillStyle = options.colors.primary;
