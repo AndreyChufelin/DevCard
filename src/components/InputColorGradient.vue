@@ -1,7 +1,6 @@
 <script setup lang="ts">
+import { Gradient } from "../composables/cardCanvas";
 import InputColor from "./InputColor.vue";
-
-export type Gradient = [string, string];
 
 const gradient = defineModel<Gradient>({ default: ["", ""] });
 </script>

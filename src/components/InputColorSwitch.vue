@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref, watchEffect } from "vue";
 import InputColor from "./InputColor.vue";
-import InputColorGradient, { Gradient } from "./InputColorGradient.vue";
+import InputColorGradient from "./InputColorGradient.vue";
 import GradientIcon from "./icons/GradientIcon.vue";
 import ColorIcon from "./icons/ColorIcon.vue";
+import { Gradient } from "../composables/cardCanvas";
 
 const color = defineModel<Gradient | string>({ default: "#000000" });
 const colorType = ref<"single" | "gradient">("single");

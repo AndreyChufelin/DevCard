@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { EditorOptions } from "./composables/cardCanvas";
+import { DrawOptions } from "./composables/cardCanvas";
 import TheEditor from "./components/TheEditor.vue";
 import ThePreview from "./components/ThePreview.vue";
 
-const editorOptions = ref<EditorOptions>({
+const DrawOptions = ref<DrawOptions>({
   info: {
     name: "",
     jobTitle: "",
@@ -26,8 +26,8 @@ const editorOptions = ref<EditorOptions>({
 
 <template>
   <div class="app">
-    <TheEditor v-model="editorOptions" class="editor" />
-    <ThePreview :canvasOptions="editorOptions" />
+    <TheEditor v-model="DrawOptions" class="editor" />
+    <ThePreview :canvasOptions="DrawOptions" />
   </div>
 </template>
 

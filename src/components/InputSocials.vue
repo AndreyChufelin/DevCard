@@ -11,14 +11,14 @@ import FacebookIcon from "./icons/FacebookIcon.vue";
 import InputSocialsToolbar, {
   SocialsAddEvent,
 } from "./InputSocialsToolbar.vue";
-import { SocialItem } from "../composables/cardCanvas";
+import { Social } from "../composables/cardCanvas";
 
 export interface SocialsListItem {
   icon: typeof TelegramIcon | typeof GithubIcon;
   type: string;
 }
 
-const items = defineModel<SocialItem[]>({
+const items = defineModel<Social[]>({
   required: true,
 });
 

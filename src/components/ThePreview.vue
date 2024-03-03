@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { watchEffect } from "vue";
 
-import { EditorOptions, useCardCanvas } from "../composables/cardCanvas.ts";
+import { DrawOptions, useCardCanvas } from "../composables/cardCanvas.ts";
 import PhoneIcon from "./icons/PhoneIcon.vue";
 import DesktopIcon from "./icons/DesktopIcon.vue";
 
-const props = defineProps<{ canvasOptions: EditorOptions }>();
+const props = defineProps<{ canvasOptions: DrawOptions }>();
 
 const { resultURL, loading, draw } = useCardCanvas(() => {
   draw(props.canvasOptions);

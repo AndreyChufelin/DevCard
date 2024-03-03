@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { EditorOptions } from "../composables/cardCanvas";
+import { DrawOptions } from "../composables/cardCanvas";
 import InputColor from "./InputColor.vue";
 import InputColorSwitch from "./InputColorSwitch.vue";
 import InputField from "./InputField.vue";
@@ -10,7 +10,7 @@ import VueInput from "./VueInput.vue";
 
 
 defineProps<{
-  modelValue: EditorOptions;
+  modelValue: DrawOptions;
 }>();
 </script>
 

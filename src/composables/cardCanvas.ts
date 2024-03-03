@@ -2,15 +2,14 @@ import { ref } from "vue";
 import { qrcanvas } from "qrcanvas";
 
 import backgroundImage from "../assets/cardCanvas/s.png";
-import { Gradient } from "../components/InputColorGradient.vue";
 import canvasIcons from "../utils/canvasIcons";
 
-export interface EditorOptions {
+export interface DrawOptions {
   info: {
     name: string;
     jobTitle: string;
     skills: string[];
-    socials: SocialItem[];
+    socials: Social[];
     qrcode: string;
   };
   colors: {
@@ -20,10 +19,12 @@ export interface EditorOptions {
   };
 }
 
-export interface SocialItem {
+export interface Social {
   text: string;
   type: string;
 }
+
+export type Gradient = [string, string];
 
 export function useCardCanvas(onLoad: Function) {
   const resultURL = ref();
@@ -70,7 +71,7 @@ export function useCardCanvas(onLoad: Function) {
     return color;
   }
 
-  function draw(options: EditorOptions) {
+  function draw(options: DrawOptions) {
     if (loading.value) return;
     ctx.drawImage(images.background, 0, 0);
 
