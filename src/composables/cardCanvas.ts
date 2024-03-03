@@ -76,24 +76,33 @@ export function useCardCanvas(onLoad: Function) {
     ctx.drawImage(images.background, 0, 0);
 
     //TG
+    let iconsCount = 0;
     options.info.socials.forEach((social, index) => {
-      if (index > 3) {
+      if (index > 3 || social.text === "") {
         return;
       }
 
       ctx.fillStyle = options.colors.primary;
-      let p2 = new Path2D();
+      let iconPath = new Path2D();
 
       canvasIcons[social.type].forEach((icon) => {
-        let p = new Path2D(icon);
-        p2.addPath(p, { e: 35, f: canvas.height - (185 - 40 * index) });
+        let path = new Path2D(icon);
+        iconPath.addPath(path, {
+          e: 35,
+          f: canvas.height - (185 - 40 * iconsCount),
+        });
       });
 
-      ctx.fill(p2, "evenodd");
+      ctx.fill(iconPath, "evenodd");
 
       ctx.font = "24px Montserrat";
       ctx.fillStyle = options.colors.primary;
-      ctx.fillText(social.text, 35 + 30, canvas.height - (165 - 40 * index));
+      ctx.fillText(
+        social.text,
+        35 + 30,
+        canvas.height - (165 - 40 * iconsCount)
+      );
+      iconsCount++;
     });
 
     //Name
@@ -113,7 +122,7 @@ export function useCardCanvas(onLoad: Function) {
     ctx.font = "16px Montserrat";
     ctx.fillStyle = options.colors.second;
     ctx.fillText(options.info.skills.join(" • "), 35, 170);
-    
+
     //QRcode
     getQR(options.info.qrcode || "Hello, world!", options.colors.accent).then(
       (img) => {
