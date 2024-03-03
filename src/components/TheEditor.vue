@@ -52,6 +52,9 @@ defineProps<{
             <InputColor v-model="modelValue.colors.primary" />
           </InputField>
           <InputField title="Дополнительный">
+            <InputColor v-model="modelValue.colors.second" />
+          </InputField>
+          <InputField title="Акцентный">
             <InputColorSwitch v-model="modelValue.colors.accent" />
           </InputField>
         </div>
