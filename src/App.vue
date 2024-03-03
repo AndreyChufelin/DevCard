@@ -1,33 +1,43 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { DrawOptions } from "./composables/cardCanvas";
+import type { DrawOptions } from "./composables/cardCanvas.ts";
 import TheEditor from "./components/TheEditor.vue";
 import ThePreview from "./components/ThePreview.vue";
 
-const DrawOptions = ref<DrawOptions>({
-  info: {
-    name: "",
-    jobTitle: "",
-    skills: [],
-    socials: [
-      { text: "", type: "tg" },
-      { text: "", type: "github" },
-      { text: "", type: "email" },
-    ],
-    qrcode: "",
-  },
-  colors: {
-    primary: "#ffffff",
-    second: "#828284",
-    accent: ["#4158d0", "#c850c0"],
-  },
-});
+function setDefaultOptions() {
+  const defaultOptions: DrawOptions = {
+    info: {
+      name: "",
+      jobTitle: "",
+      skills: [],
+      socials: [
+        { text: "", type: "tg" },
+        { text: "", type: "github" },
+        { text: "", type: "email" },
+      ],
+      qrcode: "",
+    },
+    colors: {
+      primary: "#ffffff",
+      second: "#828284",
+      accent: ["#4158d0", "#c850c0"],
+    },
+  };
+
+  return defaultOptions;
+}
+
+const editorOptions = ref(setDefaultOptions());
+
+function clearOptions() {
+  editorOptions.value = setDefaultOptions();
+}
 </script>
 
 <template>
   <div class="app">
-    <TheEditor v-model="DrawOptions" class="editor" />
-    <ThePreview :canvasOptions="DrawOptions" />
+    <TheEditor v-model="editorOptions" class="editor" />
+    <ThePreview :canvasOptions="editorOptions" @clear="clearOptions" />
   </div>
 </template>
 

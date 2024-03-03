@@ -26,17 +26,15 @@ watchEffect(() => {
         <button class="link"><PhoneIcon /></button>
       </div>
     </h2>
-    <img
-      v-if="!loading"
-      class="preview__image"
-      :src="resultURL"
-      alt="Card's preview"
-    />
-    <p>{{ canvasOptions }}</p>
-    <div class="preview__toolbar">
-      <button class="button download-button">Скачать</button>
-      <button class="button-dark">Сбросить</button>
-    </div>
+    <template v-if="!loading">
+      <img class="preview__image" :src="resultURL" alt="Card's preview" />
+      <div class="preview__toolbar">
+        <a class="button download-button" :href="resultURL" download="DevCard.png">
+          Скачать
+        </a>
+        <button class="button-dark" @click="$emit('clear')">Сбросить</button>
+      </div>
+    </template>
   </div>
 </template>
 
