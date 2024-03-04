@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { DrawOptions } from "../composables/cardCanvas";
+import InputBackground from "./InputBackground.vue";
 import InputColor from "./InputColor.vue";
 import InputColorSwitch from "./InputColorSwitch.vue";
 import InputField from "./InputField.vue";
@@ -7,7 +8,6 @@ import InputSocials from "./InputSocials.vue";
 import InputTags from "./InputTags.vue";
 import VueAccordion from "./VueAccordion.vue";
 import VueInput from "./VueInput.vue";
-
 
 defineProps<{
   modelValue: DrawOptions;
@@ -63,33 +63,7 @@ defineProps<{
     <VueAccordion>
       <template #title><h2>Задний фон</h2></template>
       <template #default>
-        <div class="editor__group">
-          <div class="input-field">
-            Информация
-            <div class="input-field__select">
-              <img
-                class="input-field__select-item"
-                src="D:\downloads\ssss.png"
-                alt=""
-              />
-              <img
-                class="input-field__select-item"
-                src="D:\downloads\ssss.png"
-                alt=""
-              />
-              <img
-                class="input-field__select-item"
-                src="D:\downloads\ssss.png"
-                alt=""
-              />
-              <img
-                class="input-field__select-item"
-                src="D:\downloads\ssss.png"
-                alt=""
-              />
-            </div>
-          </div>
-        </div>
+        <InputBackground v-model="modelValue.background" />
       </template>
     </VueAccordion>
   </div>

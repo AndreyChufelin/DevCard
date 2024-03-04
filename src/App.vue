@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watchEffect } from "vue";
 import type { DrawOptions } from "./composables/cardCanvas.ts";
 import TheEditor from "./components/TheEditor.vue";
 import ThePreview from "./components/ThePreview.vue";
@@ -22,6 +22,7 @@ function setDefaultOptions() {
       second: "#828284",
       accent: ["#4158d0", "#c850c0"],
     },
+    background: "background",
   };
 
   return defaultOptions;
@@ -32,11 +33,36 @@ const editorOptions = ref(setDefaultOptions());
 function clearOptions() {
   editorOptions.value = setDefaultOptions();
 }
+
+interface color {
+  primary?: string;
+  second?: string;
+  accent?: string | string[];
+}
+
+const colors: {
+  [key: string]: color;
+} = {
+  background: { primary: "#ffffff", second: "#828284", accent: ["#4158d0", "#c850c0"] },
+  background2: { primary: "#000000", second: "#000000", accent: ["#41AED0", "#B7C850"] },
+};
+type c = "primary" | "second" | "accent";
+watchEffect(() => {
+  Object.keys(colors[editorOptions.value.background]).forEach((key) => {
+    editorOptions.value.colors[key as c] = colors[
+      editorOptions.value.background
+    ][key as c] as string;
+  });
+});
 </script>
 
 <template>
   <div class="app">
-    <TheEditor v-model="editorOptions" class="editor" />
+    <TheEditor
+      v-model="editorOptions"
+      @changeColor="editorOptions.colors.primary = $event.primary"
+      class="editor"
+    />
     <ThePreview :canvasOptions="editorOptions" @clear="clearOptions" />
   </div>
 </template>

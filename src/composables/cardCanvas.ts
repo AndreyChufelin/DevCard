@@ -1,7 +1,8 @@
 import { ref } from "vue";
 import { qrcanvas } from "qrcanvas";
 
-import backgroundImage from "../assets/cardCanvas/s.png";
+import backgroundImage from "../assets/cardCanvas/background.png";
+import backgroundImage2 from "../assets/cardCanvas/background2.png";
 import canvasIcons from "../utils/canvasIcons";
 
 export interface DrawOptions {
@@ -17,6 +18,7 @@ export interface DrawOptions {
     second: string;
     accent: string | Gradient;
   };
+  background: string;
 }
 
 export interface Social {
@@ -25,6 +27,11 @@ export interface Social {
 }
 
 export type Gradient = [string, string];
+
+export const backgroundImages = [
+  { name: "background", src: backgroundImage, width: 850, height: 500 },
+  { name: "background2", src: backgroundImage2, width: 850, height: 500 },
+];
 
 export function useCardCanvas(onLoad: Function) {
   const resultURL = ref();
@@ -35,9 +42,7 @@ export function useCardCanvas(onLoad: Function) {
   canvas.width = 850;
   canvas.height = 500;
 
-  const imageURL = [
-    { name: "background", src: backgroundImage, width: 850, height: 500 },
-  ];
+  const imageURL = [...backgroundImages];
   const images: {
     [key: string]: HTMLImageElement;
   } = {};
@@ -73,7 +78,7 @@ export function useCardCanvas(onLoad: Function) {
 
   function draw(options: DrawOptions) {
     if (loading.value) return;
-    ctx.drawImage(images.background, 0, 0);
+    ctx.drawImage(images[options.background], 0, 0);
 
     //TG
     let iconsCount = 0;
