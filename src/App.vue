@@ -45,6 +45,7 @@ const colors: {
 } = {
   background: { primary: "#ffffff", second: "#828284", accent: ["#4158d0", "#c850c0"] },
   background2: { primary: "#000000", second: "#000000", accent: ["#41AED0", "#B7C850"] },
+  background3: { primary: "#ffffff", second: "#DCDCDC", accent: "#FDC830" },
 };
 type c = "primary" | "second" | "accent";
 watchEffect(() => {

@@ -3,6 +3,7 @@ import { qrcanvas } from "qrcanvas";
 
 import backgroundImage from "../assets/cardCanvas/background.png";
 import backgroundImage2 from "../assets/cardCanvas/background2.png";
+import backgroundImage3 from "../assets/cardCanvas/background3.png";
 import canvasIcons from "../utils/canvasIcons";
 
 export interface DrawOptions {
@@ -31,6 +32,7 @@ export type Gradient = [string, string];
 export const backgroundImages = [
   { name: "background", src: backgroundImage, width: 850, height: 500 },
   { name: "background2", src: backgroundImage2, width: 850, height: 500 },
+  { name: "background3", src: backgroundImage3, width: 850, height: 500 },
 ];
 
 export function useCardCanvas(onLoad: Function) {

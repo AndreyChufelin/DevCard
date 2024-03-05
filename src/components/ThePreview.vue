@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watchEffect } from "vue";
+import { watch } from "vue";
 
 import { DrawOptions, useCardCanvas } from "../composables/cardCanvas.ts";
 import PhoneIcon from "./icons/PhoneIcon.vue";
@@ -11,9 +11,20 @@ const { resultURL, loading, draw } = useCardCanvas(() => {
   draw(props.canvasOptions);
 });
 
-watchEffect(() => {
-  draw(props.canvasOptions);
-});
+let timer: number;
+
+watch(
+  () => props.canvasOptions,
+  () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      draw(props.canvasOptions);
+    }, 500);
+  },
+  {
+    deep: true,
+  }
+);
 </script>
 
 <template>
@@ -29,7 +40,11 @@ watchEffect(() => {
     <template v-if="!loading">
       <img class="preview__image" :src="resultURL" alt="Card's preview" />
       <div class="preview__toolbar">
-        <a class="button download-button" :href="resultURL" download="DevCard.png">
+        <a
+          class="button download-button"
+          :href="resultURL"
+          download="DevCard.png"
+        >
           Скачать
         </a>
         <button class="button-dark" @click="$emit('clear')">Сбросить</button>

@@ -12,13 +12,6 @@ const emits = defineEmits<{
   (e: "change", value: color): void;
 }>();
 
-const colors: {
-  [key: string]: color;
-} = {
-  background: { primary: "#ffffff", second: "#828284" },
-  background2: { primary: "#000000", second: "#171717" },
-};
-
 const selectedItem = ref(
   backgroundImages.findIndex((b) => b.name === background.value)
 );
