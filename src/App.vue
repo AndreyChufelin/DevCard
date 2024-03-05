@@ -5,33 +5,33 @@ import TheEditor from "./components/TheEditor.vue";
 import ThePreview from "./components/ThePreview.vue";
 
 function setDefaultOptions() {
-  const savedOptions = localStorage.getItem("canvasOptions");
-  const defaultOptions: DrawOptions = savedOptions
-    ? JSON.parse(savedOptions)
-    : {
-        info: {
-          name: "",
-          jobTitle: "",
-          skills: [],
-          socials: [
-            { text: "", type: "tg" },
-            { text: "", type: "github" },
-            { text: "", type: "email" },
-          ],
-          qrcode: "",
-        },
-        colors: {
-          primary: "#ffffff",
-          second: "#828284",
-          accent: ["#4158d0", "#c850c0"],
-        },
-        background: "background",
-      };
+  const defaultOptions: DrawOptions = {
+    info: {
+      name: "",
+      jobTitle: "",
+      skills: [],
+      socials: [
+        { text: "", type: "tg" },
+        { text: "", type: "github" },
+        { text: "", type: "email" },
+      ],
+      qrcode: "",
+    },
+    colors: {
+      primary: "#ffffff",
+      second: "#828284",
+      accent: ["#4158d0", "#c850c0"],
+    },
+    background: "background",
+  };
 
   return defaultOptions;
 }
 
-const editorOptions = ref(setDefaultOptions());
+const savedOptions = localStorage.getItem("canvasOptions");
+const editorOptions = ref(
+  savedOptions ? JSON.parse(savedOptions) : setDefaultOptions()
+);
 
 function clearOptions() {
   editorOptions.value = setDefaultOptions();
