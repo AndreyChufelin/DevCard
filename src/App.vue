@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watchEffect } from "vue";
+import { ref, watch, watchEffect } from "vue";
 import type { DrawOptions } from "./composables/cardCanvas.ts";
 import TheEditor from "./components/TheEditor.vue";
 import ThePreview from "./components/ThePreview.vue";
@@ -59,14 +59,17 @@ const colors: {
   background3: { primary: "#ffffff", second: "#DCDCDC", accent: "#FDC830" },
 };
 
-type c = "primary" | "second" | "accent";
-watchEffect(() => {
-  Object.keys(colors[editorOptions.value.background]).forEach((key) => {
-    editorOptions.value.colors[key as c] = colors[
-      editorOptions.value.background
-    ][key as c] as string;
-  });
-});
+type colorType = "primary" | "second" | "accent";
+watch(
+  () => editorOptions.value.background,
+  () => {
+    Object.keys(colors[editorOptions.value.background]).forEach((key) => {
+      editorOptions.value.colors[key as colorType] = colors[
+        editorOptions.value.background
+      ][key as colorType] as string;
+    });
+  }
+);
 watchEffect(() => {
   localStorage.setItem("canvasOptions", JSON.stringify(editorOptions.value));
 });

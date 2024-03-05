@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import { computed } from "vue";
+
+const props = defineProps<{
+  maxLength?: number;
+}>();
+
 const model = defineModel();
 
 const filled = computed(() => model.value);
@@ -23,6 +28,7 @@ const filled = computed(() => model.value);
     </div>
     <input
       v-model="model"
+      :maxlength="maxLength"
       class="input__input"
       type="text"
     />
@@ -38,6 +44,9 @@ const filled = computed(() => model.value);
   border-radius: 5px;
   padding: 10px 20px;
   transition: border 0.3s;
+}
+.input__input {
+  width: 100%;
 }
 .input:has(.input__input:focus) {
   border-color: var(--gradient-first-color);

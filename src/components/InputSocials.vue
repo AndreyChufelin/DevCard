@@ -80,7 +80,7 @@ const socialsList: {
         :key="item.type"
         class="socials__field"
       >
-        <VueInput v-model="item.text" class="socials__input">
+        <VueInput v-model="item.text" :maxLength="24" class="socials__input">
           <template #icon>
             <component :is="socialsList[item.type].icon" />
           </template>

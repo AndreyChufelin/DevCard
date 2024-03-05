@@ -22,10 +22,10 @@ defineProps<{
       <template #default>
         <div class="editor__group">
           <InputField tag="label" title="Имя">
-            <VueInput v-model="modelValue.info.name" />
+            <VueInput v-model="modelValue.info.name" :maxLength="32" />
           </InputField>
           <InputField tag="label" title="Должность">
-            <VueInput v-model="modelValue.info.jobTitle" />
+            <VueInput v-model="modelValue.info.jobTitle" :maxLength="32" />
           </InputField>
           <InputField title="Навыки (Enter)">
             <InputTags v-model="modelValue.info.skills" />

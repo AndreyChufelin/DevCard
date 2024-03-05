@@ -1,18 +1,46 @@
 <script setup lang="ts">
-const color = defineModel();
+import { computed, watchEffect } from "vue";
+
+const color = defineModel<string>();
+
+function onInput(event: Event) {
+  const value = (event.target as HTMLInputElement).value;
+  const regex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+  if (regex.test(value)) {
+    color.value = value;
+  }
+}
+
+const colorToSixDigitHex = computed(() => {
+  if (color.value?.length === 4) {
+    const hexcolor = color.value.slice(1);
+    return (
+      "#" +
+      hexcolor
+        .split("")
+        .map(function (hex) {
+          return hex + hex;
+        })
+        .join("")
+    );
+  }
+  return color.value;
+});
 </script>
 
 <template>
   <div class="input-color">
     <input
-      v-model="color"
+      :value="colorToSixDigitHex"
+      @input="onInput"
       class="input-color-picker"
       type="color"
       name=""
       id=""
     />
     <input
-      v-model="color"
+      :value="color"
+      @input="onInput"
       class="input-color-input"
       type="text"
       name=""
