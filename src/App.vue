@@ -5,25 +5,28 @@ import TheEditor from "./components/TheEditor.vue";
 import ThePreview from "./components/ThePreview.vue";
 
 function setDefaultOptions() {
-  const defaultOptions: DrawOptions = {
-    info: {
-      name: "",
-      jobTitle: "",
-      skills: [],
-      socials: [
-        { text: "", type: "tg" },
-        { text: "", type: "github" },
-        { text: "", type: "email" },
-      ],
-      qrcode: "",
-    },
-    colors: {
-      primary: "#ffffff",
-      second: "#828284",
-      accent: ["#4158d0", "#c850c0"],
-    },
-    background: "background",
-  };
+  const savedOptions = localStorage.getItem("canvasOptions");
+  const defaultOptions: DrawOptions = savedOptions
+    ? JSON.parse(savedOptions)
+    : {
+        info: {
+          name: "",
+          jobTitle: "",
+          skills: [],
+          socials: [
+            { text: "", type: "tg" },
+            { text: "", type: "github" },
+            { text: "", type: "email" },
+          ],
+          qrcode: "",
+        },
+        colors: {
+          primary: "#ffffff",
+          second: "#828284",
+          accent: ["#4158d0", "#c850c0"],
+        },
+        background: "background",
+      };
 
   return defaultOptions;
 }
@@ -43,10 +46,19 @@ interface color {
 const colors: {
   [key: string]: color;
 } = {
-  background: { primary: "#ffffff", second: "#828284", accent: ["#4158d0", "#c850c0"] },
-  background2: { primary: "#000000", second: "#000000", accent: ["#41AED0", "#B7C850"] },
+  background: {
+    primary: "#ffffff",
+    second: "#828284",
+    accent: ["#4158d0", "#c850c0"],
+  },
+  background2: {
+    primary: "#000000",
+    second: "#000000",
+    accent: ["#41AED0", "#B7C850"],
+  },
   background3: { primary: "#ffffff", second: "#DCDCDC", accent: "#FDC830" },
 };
+
 type c = "primary" | "second" | "accent";
 watchEffect(() => {
   Object.keys(colors[editorOptions.value.background]).forEach((key) => {
@@ -54,6 +66,9 @@ watchEffect(() => {
       editorOptions.value.background
     ][key as c] as string;
   });
+});
+watchEffect(() => {
+  localStorage.setItem("canvasOptions", JSON.stringify(editorOptions.value));
 });
 </script>
 
