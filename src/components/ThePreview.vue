@@ -2,8 +2,7 @@
 import { watch } from "vue";
 
 import { DrawOptions, useCardCanvas } from "../composables/cardCanvas.ts";
-import PhoneIcon from "./icons/PhoneIcon.vue";
-import DesktopIcon from "./icons/DesktopIcon.vue";
+import PreviewSwitchSize from "./PreviewSwitchSize.vue";
 
 const props = defineProps<{ canvasOptions: DrawOptions }>();
 
@@ -28,14 +27,17 @@ watch(
 </script>
 
 <template>
-  <div class="preview">
+  <div
+    class="preview"
+    :class="{
+      small: canvasOptions.size === 'small',
+      large: canvasOptions.size === 'large',
+    }"
+  >
     <h1 class="app-title">DevCard</h1>
     <h2 class="preview__title">
       Пред просмотр
-      <div class="preview__title_toolbar">
-        <button class="link"><DesktopIcon /></button>
-        <button class="link"><PhoneIcon /></button>
-      </div>
+      <PreviewSwitchSize v-model="canvasOptions.size" />
     </h2>
     <template v-if="!loading">
       <img class="preview__image" :src="resultURL" alt="Card's preview" />
@@ -58,6 +60,8 @@ watch(
   display: flex;
   flex-direction: column;
   gap: 30px;
+  margin-top: 70px;
+  transition: width 0.3s;
 }
 .preview__image {
   width: 100%;
@@ -92,12 +96,26 @@ watch(
 }
 
 .download-button {
+  text-align: center;
   padding: 15px 60px;
+}
+
+.large {
+  width: 70%;
+}
+.small {
+  width: 30%;
 }
 
 @media (max-width: 992px) {
   .app-title {
     display: block;
+  }
+  .small {
+    width: 100%;
+  }
+  .large {
+    width: 100%;
   }
 }
 </style>

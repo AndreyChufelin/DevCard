@@ -7,6 +7,7 @@ import backgroundImage3 from "../assets/cardCanvas/background3.png";
 import canvasIcons from "../utils/canvasIcons";
 
 export interface DrawOptions {
+  size: string;
   info: {
     name: string;
     jobTitle: string;
@@ -80,6 +81,15 @@ export function useCardCanvas(onLoad: Function) {
 
   function draw(options: DrawOptions) {
     if (loading.value) return;
+    console.log("size", options.size);
+    if (options.size === "large") {
+      canvas.width = 850;
+      canvas.height = 500;
+    } else {
+
+      canvas.width = 365;
+      canvas.height = 500;
+    }
     ctx.drawImage(images[options.background], 0, 0);
 
     //TG
@@ -91,58 +101,107 @@ export function useCardCanvas(onLoad: Function) {
 
       ctx.fillStyle = options.colors.primary;
       let iconPath = new Path2D();
+      const iconY = options.size==="large" ? (185 - 40 * iconsCount) : (125 - 25 * iconsCount)
+      const iconScale = options.size==="large" ? 1 : 0.7
+
+      var m = document.createElementNS("http://www.w3.org/2000/svg", "svg").createSVGMatrix()
+      m.scale(0.5)
 
       canvasIcons[social.type].forEach((icon) => {
         let path = new Path2D(icon);
         iconPath.addPath(path, {
+          a: iconScale,
+          d: iconScale,
           e: 35,
-          f: canvas.height - (185 - 40 * iconsCount),
+          f: canvas.height - iconY,
         });
       });
 
       ctx.fill(iconPath, "evenodd");
 
-      ctx.font = "24px Montserrat";
+      ctx.font = `${options.size === "large" ? "24px" : "16px"} Montserrat`;
       ctx.fillStyle = options.colors.primary;
-      ctx.fillText(
-        social.text,
-        35 + 30,
-        canvas.height - (165 - 40 * iconsCount)
-      );
+      const textY =
+        options.size === "large"
+          ? 165 - 40 * iconsCount
+          : 110 - 25 * iconsCount;
+
+      ctx.fillText(social.text, 35 + 30, canvas.height - textY);
       iconsCount++;
     });
 
     //Name
-    ctx.font = "bold 48px Montserrat";
-    ctx.fillStyle = options.colors.primary;
-    ctx.fillText(options.info.name, 35, 35 + 48);
+    if (options.size === "large") {
+      ctx.textAlign = "left";
+      ctx.font = "bold 48px Montserrat";
+      ctx.fillStyle = options.colors.primary;
+
+      ctx.fillText(options.info.name, 35, 35 + 48);
+    } else {
+      ctx.textAlign = "center";
+      ctx.font = "bold 24px Montserrat";
+      ctx.fillStyle = options.colors.primary;
+
+      ctx.fillText(options.info.name, canvas.width / 2, 50);
+    }
 
     //Job
-    const jobTitle = options.info.jobTitle;
-    ctx.fillStyle = getColor(
-      options.colors.accent,
-      ctx.measureText(jobTitle).width
-    );
-    ctx.fillText(jobTitle, 35, 135);
+    if (options.size === "large") {
+      const jobTitle = options.info.jobTitle;
+      ctx.fillStyle = getColor(
+        options.colors.accent,
+        ctx.measureText(jobTitle).width
+      );
+
+      ctx.fillText(jobTitle, 35, 135);
+    } else {
+      const jobTitle = options.info.jobTitle;
+      ctx.fillStyle = getColor(options.colors.accent);
+
+      ctx.fillText(jobTitle, canvas.width / 2, 80);
+    }
 
     //Skills
-    ctx.font = "16px Montserrat";
-    ctx.fillStyle = options.colors.second;
-    ctx.fillText(options.info.skills.join(" • "), 35, 170);
+    if (options.size === "large") {
+      ctx.font = "16px Montserrat";
+      ctx.fillStyle = options.colors.second;
+
+      ctx.fillText(options.info.skills.join(" • "), 35, 170);
+    } else {
+      ctx.font = "14px Montserrat";
+      ctx.fillStyle = options.colors.second;
+
+      ctx.fillText(options.info.skills.join(" • "), canvas.width / 2, 105);
+    }
 
     //QRcode
-    getQR(options.info.qrcode || "Hello, world!", options.colors.accent).then(
-      (img) => {
-        ctx.drawImage(
-          img as HTMLImageElement,
-          canvas.width - 165,
-          canvas.height - 183,
-          130,
-          130
-        );
-        save();
-      }
-    );
+    if (options.size === "large") {
+      getQR(options.info.qrcode || "Hello, world!", options.colors.accent).then(
+        (img) => {
+          ctx.drawImage(
+            img as HTMLImageElement,
+            canvas.width - 165,
+            canvas.height - 183,
+            130,
+            130
+          );
+          save();
+        }
+      );
+    } else {
+      getQR(options.info.qrcode || "Hello, world!", options.colors.accent).then(
+        (img) => {
+          ctx.drawImage(
+            img as HTMLImageElement,
+            canvas.width - 115,
+            canvas.height - 120,
+            80,
+            80
+          );
+          save();
+        }
+      );
+    }
   }
 
   function save() {

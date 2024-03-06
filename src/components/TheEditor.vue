@@ -15,7 +15,13 @@ defineProps<{
 </script>
 
 <template>
-  <div class="editor">
+  <div
+    class="editor"
+    :class="{
+      small: modelValue.size === 'small',
+      large: modelValue.size === 'large',
+    }"
+  >
     <h1 class="app-title">DevCard</h1>
     <VueAccordion>
       <template #title><h2>Информация</h2></template>
@@ -39,9 +45,6 @@ defineProps<{
         </div>
       </template>
     </VueAccordion>
-    <!-- <div class="editor__group">
-      <h2 class="editor__title"></h2>
-    </div> -->
     <VueAccordion>
       <template #title>
         <h2>Цвета</h2>
@@ -74,6 +77,7 @@ defineProps<{
   flex-direction: column;
   gap: 30px;
   container-type: inline-size;
+  transition: width 0.3s;
 }
 .editor__title {
   display: flex;
@@ -85,9 +89,27 @@ defineProps<{
   gap: 10px;
 }
 
+.large {
+  width: 30%;
+}
+.small {
+  width: 70%;
+}
+
 @media (max-width: 992px) {
   .app-title {
     display: none;
+  }
+  .editor {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .small {
+    width: 100%;
+  }
+  .large {
+    width: 100%;
   }
 }
 </style>

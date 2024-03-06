@@ -6,6 +6,7 @@ import ThePreview from "./components/ThePreview.vue";
 
 function setDefaultOptions() {
   const defaultOptions: DrawOptions = {
+    size: "large",
     info: {
       name: "",
       jobTitle: "",
@@ -80,7 +81,6 @@ watchEffect(() => {
     <TheEditor
       v-model="editorOptions"
       @changeColor="editorOptions.colors.primary = $event.primary"
-      class="editor"
     />
     <ThePreview :canvasOptions="editorOptions" @clear="clearOptions" />
   </div>
@@ -92,14 +92,6 @@ watchEffect(() => {
   display: flex;
   gap: 30px;
   margin: 0 auto;
-}
-
-.editor {
-  width: 30%;
-}
-.preview {
-  width: 70%;
-  margin-top: 70px;
 }
 @media (max-width: 992px) {
   .app {
