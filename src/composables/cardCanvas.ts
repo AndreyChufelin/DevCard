@@ -86,7 +86,6 @@ export function useCardCanvas(onLoad: Function) {
       canvas.width = 850;
       canvas.height = 500;
     } else {
-
       canvas.width = 365;
       canvas.height = 500;
     }
@@ -101,11 +100,16 @@ export function useCardCanvas(onLoad: Function) {
 
       ctx.fillStyle = options.colors.primary;
       let iconPath = new Path2D();
-      const iconY = options.size==="large" ? (185 - 40 * iconsCount) : (125 - 25 * iconsCount)
-      const iconScale = options.size==="large" ? 1 : 0.7
+      const iconY =
+        options.size === "large"
+          ? 185 - 40 * iconsCount
+          : 125 - 25 * iconsCount;
+      const iconScale = options.size === "large" ? 1 : 0.7;
 
-      var m = document.createElementNS("http://www.w3.org/2000/svg", "svg").createSVGMatrix()
-      m.scale(0.5)
+      var m = document
+        .createElementNS("http://www.w3.org/2000/svg", "svg")
+        .createSVGMatrix();
+      m.scale(0.5);
 
       canvasIcons[social.type].forEach((icon) => {
         let path = new Path2D(icon);

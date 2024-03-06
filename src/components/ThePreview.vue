@@ -36,7 +36,7 @@ watch(
   >
     <h1 class="app-title">DevCard</h1>
     <h2 class="preview__title">
-      Пред просмотр
+      Предпросмотр
       <PreviewSwitchSize v-model="canvasOptions.size" />
     </h2>
     <template v-if="!loading">
