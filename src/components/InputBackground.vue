@@ -1,38 +1,19 @@
 <script setup lang="ts">
-import { ref, watchEffect } from "vue";
+import { computed } from "vue";
 import { backgroundImages } from "../composables/cardCanvas";
 
-interface color {
-  primary?: string;
-  second?: string;
-}
-
 const background = defineModel();
-const emits = defineEmits<{
-  (e: "change", value: color): void;
-}>();
 
-const selectedItem = ref(
+const selectedItem = computed(() =>
   backgroundImages.findIndex((b) => b.name === background.value)
 );
-
-function selectBackground(index: number) {
-  selectedItem.value = index;
-  // emits("change", colors[backgroundImages[index].name]);
-}
-
-watchEffect(() => {
-  if (selectedItem.value === undefined) return;
-
-  background.value = backgroundImages[selectedItem.value].name;
-});
 </script>
 
 <template>
   <div class="input-background">
     <button
       v-for="(image, index) in backgroundImages"
-      @click="selectBackground(index)"
+      @click="background=image.name"
       class="input-background__item"
       :style="{
         backgroundImage: `url(${image.src})`,
